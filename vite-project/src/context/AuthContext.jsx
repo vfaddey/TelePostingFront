@@ -7,17 +7,15 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
-  const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken'));
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'));
+  const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh_token'));
   const [username, setUsername] = useState('');
 
 
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken)
       const decoded = jwtDecode(accessToken);
-      console.log(decoded)
-      setUsername(decoded.sub);
+      setUsername(decoded.username);
     }
   }, [accessToken]);
 
@@ -31,10 +29,40 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setAccessToken(null);
     setRefreshToken(null);
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     setUsername('');
   };
+
+  const autoLogin = async () => {
+    if (refreshToken) {
+      try {
+        let formData = new FormData();
+        formData.append('token', refreshToken);
+        const response = await fetch('http://localhost:8000/auth/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: refreshToken }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          updateTokens(result.access_token, refreshToken);
+        } else {
+          logout();
+        }
+      } catch (error) {
+        console.log(error);
+        logout();
+      }
+    }
+  };
+
+  useEffect(() => {
+    autoLogin();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ accessToken, refreshToken, updateTokens, logout, username}}>

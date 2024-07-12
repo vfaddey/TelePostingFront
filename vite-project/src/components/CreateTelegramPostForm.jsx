@@ -54,7 +54,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
 
       setLoading(true);
       try {
-          const response = await fetchWithAuth('http://127.0.0.1:8000/create_post', {
+          const response = await fetchWithAuth('http://127.0.0.1:8000/create_post/', {
               method: 'POST',
               body: formData,
           });
