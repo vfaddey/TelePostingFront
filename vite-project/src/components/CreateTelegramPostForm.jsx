@@ -1,6 +1,6 @@
 import {
     Form, Radio,
-    Button, Input, Flex, DatePicker, message, Switch, Spin,
+    Button, Input, Flex, DatePicker, message, Switch, Spin, Checkbox
 } from 'antd';
 import 'react-quill/dist/quill.snow.css';
 import React from 'react';
@@ -17,6 +17,31 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
     const [fileList, setFileList] = React.useState([]);
     const [publishNow, setPublishNow] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
+    const [channels, setChannels] = React.useState([]);
+    const [selectedChannels, setSelectedChannels] = React.useState([]);
+
+
+    React.useEffect(() => {
+      const fetchChannels = async () => {
+          try {
+              const response = await fetchWithAuth('http://127.0.0.1:8000/channels', {method: 'GET'});
+              if (response.ok) {
+                  const data = await response.json();
+                  setChannels(data);
+              } else {
+                  message.error('Ошибка при получении списка каналов');
+              }
+          } catch (error) {
+              console.error('Error:', error);
+          }
+      };
+      fetchChannels();
+  }, [fetchWithAuth]);
+
+  const handleChannelChange = (checkedValues) => {
+      setSelectedChannels(checkedValues);
+  };
+
 
    const handleSubmit = async (values) => {
       const hasContent = values.text || values.publish_time || fileList.length > 0 || (values.buttons && values.buttons.length > 0);
@@ -52,6 +77,14 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
           });
       }
 
+      if (selectedChannels.length > 0) {
+        formData.append('channels', JSON.stringify(selectedChannels));
+      } else {
+          message.error('Нужно выбрать хотя бы один канал для публикации');
+          return;
+      }
+
+
       setLoading(true);
       try {
           const response = await fetchWithAuth('http://127.0.0.1:8000/create_post/', {
@@ -72,7 +105,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
       } finally {
           setLoading(false);
       }
-  }
+    }
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -116,6 +149,10 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                 <FormItem label="Опубликовать сразу" {...formItemLayout}>
                   <Switch defaultChecked={publishNow} onChange={handlePublishNowChange} />
                 </FormItem>
+
+                <Form.Item label="Каналы для публикации" {...formItemLayout}>
+                    <Checkbox.Group options={channels.map(channel => ({ label: channel.title, value: channel.username }))} onChange={handleChannelChange} />
+                </Form.Item>
 
                 {!publishNow && (
                   <FormItem label="Дата публикации" {...formItemLayout} name="publish_time">
