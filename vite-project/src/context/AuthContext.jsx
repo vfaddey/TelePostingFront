@@ -37,6 +37,15 @@ export const AuthProvider = ({ children }) => {
   const autoLogin = async () => {
     if (refreshToken) {
       try {
+        if (accessToken) {
+          const decoded = jwtDecode(accessToken);
+          const currentTime = Date.now() / 1000; // текущее время в секундах
+          const bufferTime = 60 * 5; // 5 минут
+          if (decoded.exp - currentTime > bufferTime) {
+            return;
+          }
+        }
+
         let formData = new FormData();
         formData.append('token', refreshToken);
         const response = await fetch('http://localhost:8000/auth/refresh', {

@@ -1,10 +1,10 @@
-import React from 'react';
-import CreateTelegramPostForm from "../components/CreateTelegramPostForm.jsx";
-import {Divider} from "antd";
-import UploadXLSXForm from "../components/UploadXLSXForm.jsx";
+import React, {useState} from 'react';
 import { useAuth } from '../context/AuthContext';
+import {Divider} from "antd";
+import ChannelList from '../components/ChannelList';
+import AddChannelForm from '../components/AddChannelForm';
 
-const CreatePost = () => {
+const MyChannels = () => {
   const { accessToken, refreshToken, updateTokens } = useAuth();
 
   const fetchWithAuth = async (url, options = {}) => {
@@ -29,12 +29,12 @@ const CreatePost = () => {
 
   return (
       <>
-            <h2>Create Post</h2>
-            <CreateTelegramPostForm fetchWithAuth={fetchWithAuth}/>
-            <Divider/>
-            <UploadXLSXForm fetchWithAuth={fetchWithAuth}/>
+          <h2>Мои каналы</h2>
+          <ChannelList fetchWithAuth={fetchWithAuth}/>
+          <Divider/>
+          <AddChannelForm fetchWithAuth={fetchWithAuth}/>
       </>
   );
 };
 
-export default CreatePost;
+export default MyChannels;

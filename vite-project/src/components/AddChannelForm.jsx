@@ -7,31 +7,30 @@ const onFinishFailed = (errorInfo) => {
 };
 
 
-const AddBotForm = ({ fetchWithAuth }) => {
+const AddChannelForm = ({ fetchWithAuth }) => {
     const [loading, setLoading] = useState(false);
     const onFinish = async (values) => {
         setLoading(true);
-        const bot = {
-            api_token: values.api_token,
-            chosen: values.chosen || false
+        const channel = {
+            username: '@' + values.username
         };
         try {
-            const response = await fetchWithAuth('http://127.0.0.1:8000/bots/add', {
+            const response = await fetchWithAuth('http://127.0.0.1:8000/channels', {
                 method: 'POST',
                 headers: {
                       'Content-Type': 'application/json'
                     },
-                body: JSON.stringify(bot)
+                body: JSON.stringify(channel)
           });
             if (response.ok) {
-                message.success('Бот добавлен!');
+                message.success('Канал добавлен!');
             } else {
                 const errorData = await response.json();
-                message.error(errorData.detail || 'Ошибка добавления бота');
+                message.error(errorData.detail || 'Ошибка добавления канала');
                 console.log(errorData)
             }
         } catch (error) {
-            message.error( error || 'Ошибка добавления бота');
+            message.error( error || 'Ошибка добавления канала');
         } finally {
             setLoading(false)
         }
@@ -56,8 +55,8 @@ const AddBotForm = ({ fetchWithAuth }) => {
             autoComplete="off"
           >
             <Form.Item
-              label="API ключ"
-              name="api_token"
+              label="Юзернейм канала"
+              name="username"
               rules={[
                 {
                   required: true,
@@ -65,18 +64,7 @@ const AddBotForm = ({ fetchWithAuth }) => {
                 },
               ]}
             >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              name="chosen"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Checkbox>Сделать ботом по умолчанию</Checkbox>
+              <Input addonBefore="@"/>
             </Form.Item>
 
             <Form.Item
@@ -86,7 +74,7 @@ const AddBotForm = ({ fetchWithAuth }) => {
               }}
             >
               <Button type="primary" htmlType="submit">
-                  Добавить бота
+                  Добавить канал
               </Button>
             </Form.Item>
           </Form>
@@ -99,4 +87,4 @@ const AddBotForm = ({ fetchWithAuth }) => {
 
 
 
-export default AddBotForm;
+export default AddChannelForm;

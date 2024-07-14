@@ -5,9 +5,9 @@ import {UploadOutlined} from "@ant-design/icons";
 
 const { Item: FormItem } = Form;
 
-class UploadXLSXForm extends React.Component {
+const UploadXLSXForm = ({fetchWithAuth}) =>  {
 
-    handleSubmit = async (values) => {
+    const handleSubmit = async (values) => {
       const hasContent = values.file;
 
       if (!hasContent) {
@@ -25,7 +25,7 @@ class UploadXLSXForm extends React.Component {
           for (const pair of formData.entries()) {
               console.log(pair[0] + ': ' + pair[1]);
           }
-          const response = await fetch('http://127.0.0.1:8000/create_post/uploadfile', {
+          const response = await fetchWithAuth('http://127.0.0.1:8000/create_post/uploadfile', {
               method: 'POST',
               body: formData,
           });
@@ -41,9 +41,8 @@ class UploadXLSXForm extends React.Component {
       }
   }
 
-    render() {
-        return(
-            <Form onFinish={this.handleSubmit}>
+    return(
+            <Form onFinish={handleSubmit}>
                 <FormItem name={"file"}>
                     <Upload
                       listType="picture"
@@ -59,8 +58,7 @@ class UploadXLSXForm extends React.Component {
                 </FormItem>
             </Form>
 
-        )
-    }
+    )
 }
 
 

@@ -8,6 +8,7 @@ import CreatePost from "./pages/CreatePost.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import { useAuth } from "./context/AuthContext";
 import MyBots from "./pages/MyBots.jsx";
+import MyChannels from "./pages/MyChannels.jsx"
 
 const { Header, Content, Footer } = Layout;
 
@@ -31,6 +32,9 @@ function App() {
           <Menu.Item key="4">
             <Link to={"/bots"}>Боты</Link>
           </Menu.Item>
+          <Menu.Item key="5">
+            <Link to={"/channels"}>Каналы</Link>
+          </Menu.Item>
         </Menu>
         <div>
           {username ? (
@@ -48,6 +52,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            
             <Route path="/create_post" element={
               <PrivateRoute>
                 <CreatePost />
@@ -57,6 +62,12 @@ function App() {
             <Route path="/bots" element={
               <PrivateRoute>
                 <MyBots/>
+              </PrivateRoute>
+            } />
+
+            <Route path="/channels" element={
+              <PrivateRoute>
+                <MyChannels/>
               </PrivateRoute>
             } />
           </Routes>
