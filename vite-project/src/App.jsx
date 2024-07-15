@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import { useAuth } from "./context/AuthContext";
 import MyBots from "./pages/MyBots.jsx";
 import MyChannels from "./pages/MyChannels.jsx"
+import MyPosts from "./pages/MyPosts";
 
 const { Header, Content, Footer } = Layout;
 
@@ -34,6 +35,9 @@ function App() {
           </Menu.Item>
           <Menu.Item key="5">
             <Link to={"/channels"}>Каналы</Link>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Link to={"/posts"}>Мои посты</Link>
           </Menu.Item>
         </Menu>
         <div>
@@ -68,6 +72,12 @@ function App() {
             <Route path="/channels" element={
               <PrivateRoute>
                 <MyChannels/>
+              </PrivateRoute>
+            } />
+
+            <Route path="/posts" element={
+              <PrivateRoute>
+                <MyPosts/>
               </PrivateRoute>
             } />
           </Routes>
