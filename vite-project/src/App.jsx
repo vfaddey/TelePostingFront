@@ -20,7 +20,7 @@ function App() {
     <Layout className="layout">
       <Header style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">
             <Link to="/create_post">Create Post</Link>
           </Menu.Item>

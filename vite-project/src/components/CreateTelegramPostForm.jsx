@@ -15,7 +15,7 @@ const { TextArea } = Input;
 
 const CreateTelegramPostForm = ({ fetchWithAuth }) => {
     const [fileList, setFileList] = React.useState([]);
-    const [publishNow, setPublishNow] = React.useState(true);
+    const [publishNow, setPublishNow] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [channels, setChannels] = React.useState([]);
     const [selectedChannels, setSelectedChannels] = React.useState([]);
@@ -130,6 +130,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
     return (
         <Spin spinning={loading}>
             <Form onFinish={handleSubmit}>
+              
                 <FormItem label="Фотографии" {...formItemLayout} name="photos" valuePropName="fileList" getValueFromEvent={normFile}>
                   <ImageUpload fileList={fileList} onChange={handleFileChange}/>
                 </FormItem>
@@ -138,9 +139,12 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                   <TextArea showCount maxLength={10000} placeholder="Текст поста" />
                 </FormItem>
 
-                <FormItem label="Кнопки" {...formItemLayout} name="buttons">
-                  <CreateButtons />
-                </FormItem>
+                {fileList.length <= 1 && (
+                  <FormItem label="Кнопки" {...formItemLayout} name="buttons">
+                    <CreateButtons />
+                  </FormItem>
+                )}
+                
 
                 <FormItem label="Дата удаления" {...formItemLayout} name="delete_time">
                   <DatePicker showTime />

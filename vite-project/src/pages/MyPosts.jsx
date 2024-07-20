@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Row, Col } from 'antd';
 import PostCard from '../components/PostCard';
+import EditPostModal from '../components/EditPostModal';
 
 const MyPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -68,6 +69,7 @@ const MyPosts = () => {
           onClose={handleModalClose}
           post={selectedPost}
           onSave={handleSave}
+          fetchWithAuth={fetchWithAuth}
         />
       )}
     </div>
