@@ -54,12 +54,23 @@ const MyPosts = () => {
     setPosts(posts.map(post => (post.id === updatedPost.id ? updatedPost : post)));
   };
 
+  const handleDelete = async (postId) => {
+    try {
+      await fetchWithAuth(`http://localhost:8000/create_post/${postId}`, { method: 'DELETE' });
+      setPosts(posts.filter(post => post.id !== postId));
+      message.success('Post deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete post', error);
+      message.error('Failed to delete post');
+    }
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <Row gutter={[16, 16]}>
         {posts.map((post) => (
           <Col key={post.id} span={6}>
-            <PostCard post={post} onClick={handleCardClick} fetchWithAuth={fetchWithAuth} />
+            <PostCard post={post} onClick={handleCardClick} fetchWithAuth={fetchWithAuth} onDelete={handleDelete}/>
           </Col>
         ))}
       </Row>
