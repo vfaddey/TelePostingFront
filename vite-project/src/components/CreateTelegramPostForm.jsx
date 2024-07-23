@@ -91,13 +91,13 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
               method: 'POST',
               body: formData,
           });
+          const result = await response.json();
 
           if (response.ok) {
-              const result = await response.json();
               message.success('Пост создан успешно');
               console.log('Success:', result);
           } else {
-              message.error('Ошибка при создании поста');
+              message.error(result.detail || 'Ошибка при создании поста');
               console.error('Error:', response.statusText);
           }
       } catch (error) {
