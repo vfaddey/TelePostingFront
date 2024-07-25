@@ -37,8 +37,8 @@ const Register = () => {
   return (
     <Spin spinning={loading}>
       <div>
-        <h2>Register</h2>
-        <RegisterForm onFinish={onFinish} buttonText="Register" />
+        <h2>Регистрация</h2>
+        <RegisterForm onFinish={onFinish} buttonText="Зарегистрироваться" />
       </div>
     </Spin>
   );

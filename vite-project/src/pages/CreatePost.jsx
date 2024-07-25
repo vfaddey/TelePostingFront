@@ -3,6 +3,7 @@ import CreateTelegramPostForm from "../components/CreateTelegramPostForm.jsx";
 import {Divider} from "antd";
 import UploadXLSXForm from "../components/UploadXLSXForm.jsx";
 import { useAuth } from '../context/AuthContext';
+import ConfirmAccount from './ConfirmAccount.jsx';
 
 const CreatePost = () => {
   const { accessToken, refreshToken, updateTokens } = useAuth();
@@ -33,6 +34,8 @@ const CreatePost = () => {
             <CreateTelegramPostForm fetchWithAuth={fetchWithAuth}/>
             <Divider/>
             <UploadXLSXForm fetchWithAuth={fetchWithAuth}/>
+            <Divider/>
+            <ConfirmAccount/>
       </>
   );
 };

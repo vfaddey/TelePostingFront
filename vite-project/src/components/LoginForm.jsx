@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
 const LoginForm = ({ onFinish, buttonText }) => {
   return (
@@ -13,20 +14,21 @@ const LoginForm = ({ onFinish, buttonText }) => {
         name="email"
         rules={[{ required: true, message: 'Please input your Email!' }]}
       >
-        <Input placeholder="Email" />
+        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
       </Form.Item>
 
       <Form.Item
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <Input.Password placeholder="Password" />
+        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Пароль" />
       </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
           {buttonText}
         </Button>
+        Или <a href="/register">Зарегистрироваться</a>
       </Form.Item>
     </Form>
   );

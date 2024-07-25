@@ -46,8 +46,8 @@ const Login = () => {
   return (
       <Spin spinning={loading}>
         <div>
-          <h2>Login</h2>
-          <LoginForm onFinish={onFinish} buttonText="Login" />
+          <h2>Вход</h2>
+          <LoginForm onFinish={onFinish} buttonText="Войти" />
         </div>
       </Spin>
 
