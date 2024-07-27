@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {List, Button, Card, Typography, notification, message} from 'antd';
+import {List, Button, Card, Typography, notification, message, Avatar} from 'antd';
 import Icon, {DeleteOutlined} from "@ant-design/icons";
 
 const { Text } = Typography;
@@ -7,6 +7,7 @@ const { Text } = Typography;
 const ChannelList = ({fetchWithAuth}) => {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [avatarError, setAvatarError] = useState({});
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -51,6 +52,14 @@ const ChannelList = ({fetchWithAuth}) => {
     }
   };
 
+  const getAvatarUrl = (username) => {
+    return `https://t.me/i/userpic/320/${username.replace('@', '')}.jpg`;
+  };
+
+  const handleAvatarError = (username) => {
+    setAvatarError(prevState => ({ ...prevState, [username]: true }));
+  };
+
   return (
     <Card title="Управление каналами" loading={loading}>
       <List
@@ -67,7 +76,18 @@ const ChannelList = ({fetchWithAuth}) => {
             ]}
           >
             <List.Item.Meta
-              title={`${channel.title}`}
+              avatar={
+                avatarError[channel.username] ? (
+                  <Avatar icon={<UserOutlined />} />
+                ) : (
+                  <Avatar 
+                    size={'large'}
+                    src={getAvatarUrl(channel.username)} 
+                    onError={() => handleAvatarError(channel.username)} 
+                  /> 
+                )
+              }
+              title={<a href={`https://t.me/${channel.username.replace('@', '')}`} target="_blank" rel="noopener noreferrer">{channel.title}</a>}
               description={`${channel.username}`}
             />
           </List.Item>
