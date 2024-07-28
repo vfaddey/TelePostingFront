@@ -30,12 +30,12 @@ const CreatePost = () => {
 
   return (
       <>
-            <h2>Create Post</h2>
+        <div>
+           <h2>Create Post</h2>
             <CreateTelegramPostForm fetchWithAuth={fetchWithAuth}/>
             <Divider/>
             <UploadXLSXForm fetchWithAuth={fetchWithAuth}/>
-            <Divider/>
-            <ConfirmAccount/>
+        </div>
       </>
   );
 };
