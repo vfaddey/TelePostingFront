@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, DatePicker, Checkbox, Button, message, Spin, Switch } from 'antd';
-import ImageUpload from "./ImageUpload.jsx";
 import CreateButtons from "./CreateButtons.jsx";
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const { Item: FormItem } = Form;
 const { TextArea } = Input;
 
 const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
-  const [fileList, setFileList] = useState([]);
   const [publishNow, setPublishNow] = useState(true);
   const [loading, setLoading] = useState(false);
   const [channels, setChannels] = useState([]);
@@ -32,42 +30,11 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
   }, [fetchWithAuth]);
 
   useEffect(() => {
-    const loadImages = async () => {
-      if (post.photo_ids && post.photo_ids.length > 0) {
-        const loadedImages = await Promise.all(post.photo_ids.map(async (id, index) => {
-          const response = await fetchWithAuth(`http://127.0.0.1:8000/create_post/photo/${id}`, { method: 'GET' });
-          if (response.ok) {
-            const blob = await response.blob();
-            return {
-              uid: id,
-              name: `photo_${index}`,
-              status: 'done',
-              url: URL.createObjectURL(blob),
-            };
-          }
-          return null;
-        }));
-        setFileList(loadedImages.filter(Boolean));
-      } else if (post.photo_urls && post.photo_urls.length > 0) {
-        setFileList(post.photo_urls.map((url, index) => ({
-          uid: index,
-          name: `photo_${index}`,
-          status: 'done',
-          url,
-        })));
-      }
-    };
-
     if (post) {
-      loadImages();
       setPublishNow(post.publish_now);
       setSelectedChannels(post.channels);
     }
-  }, [post, fetchWithAuth]);
-
-  const handleFileChange = ({ fileList }) => {
-    setFileList(fileList);
-  };
+  }, [post]);
 
   const handlePublishNowChange = (checked) => {
     setPublishNow(checked);
@@ -78,7 +45,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
   };
 
   const handleSubmit = async (values) => {
-    const hasContent = values.text || values.publish_time || fileList.length > 0 || (values.buttons && values.buttons.length > 0);
+    const hasContent = values.text || values.publish_time || (values.buttons && values.buttons.length > 0);
 
     if (!hasContent) {
       message.error('Форма не может быть полностью пустой. Пожалуйста, заполните хотя бы одно поле.');
@@ -86,6 +53,8 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
     }
 
     const formData = new FormData();
+
+    formData.append('id', post.id)
 
     if (values.text) {
       formData.append('text', values.text);
@@ -98,20 +67,17 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
     formData.append('publish_now', publishNow);
 
     if (!publishNow && values.publish_time) {
-      formData.append('publish_time', values.publish_time.toISOString());
+      const publishTime = values.publish_time.add(3, 'hour');
+      formData.append('publish_time', publishTime.toISOString());
     }
 
     if (values.delete_time) {
-      formData.append('delete_time', values.delete_time.toISOString());
+      const deleteTime = values.delete_time.add(3, 'hour');
+      formData.append('delete_time', deleteTime.toISOString());
     }
 
-    if (fileList) {
-      fileList.forEach((file) => {
-        if (file.originFileObj) {
-          formData.append('photos', file.originFileObj);
-        }
-      });
-    }
+    // Отправляем пустой массив вместо фотографий
+    formData.append('photos', JSON.stringify([]));
 
     if (selectedChannels.length > 0) {
       formData.append('channels', JSON.stringify(selectedChannels));
@@ -122,7 +88,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
 
     setLoading(true);
     try {
-      const response = await fetchWithAuth(`http://127.0.0.1:8000/update_post/${post.id}`, {
+      const response = await fetchWithAuth(`http://127.0.0.1:8000/create_post`, {
         method: 'PUT',
         body: formData,
       });
@@ -143,13 +109,6 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
     }
   };
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
-
   return (
     <Modal
       visible={visible}
@@ -158,16 +117,15 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
       footer={null}
     >
       <Spin spinning={loading}>
-        <Form onFinish={handleSubmit} initialValues={{
-          text: post?.text,
-          delete_time: post?.delete_time ? moment(post.delete_time) : null,
-          publish_time: post?.publish_time ? moment(post.publish_time) : null,
-          buttons: post?.buttons,
-        }}>
-          <FormItem label="Фотографии" name="photos" valuePropName="fileList" getValueFromEvent={normFile}>
-            <ImageUpload fileList={fileList} onChange={handleFileChange} />
-          </FormItem>
-
+        <Form
+          onFinish={handleSubmit}
+          initialValues={{
+            text: post?.text,
+            delete_time: post?.delete_time ? dayjs(post.delete_time).add(3, 'hour') : null,
+            publish_time: post?.publish_time ? dayjs(post.publish_time).add(3, 'hour') : null,
+            buttons: post?.buttons,
+          }}
+        >
           <FormItem label="Текст" name="text">
             <TextArea showCount maxLength={10000} placeholder="Текст поста" />
           </FormItem>
@@ -177,7 +135,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
           </FormItem>
 
           <FormItem label="Дата удаления" name="delete_time">
-            <DatePicker showTime />
+            <DatePicker showTime format="YYYY-MM-DD HH:mm" />
           </FormItem>
 
           <FormItem label="Опубликовать сразу">
@@ -190,7 +148,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
 
           {!publishNow && (
             <FormItem label="Дата публикации" name="publish_time">
-              <DatePicker showTime />
+              <DatePicker showTime format="YYYY-MM-DD HH:mm" />
             </FormItem>
           )}
 

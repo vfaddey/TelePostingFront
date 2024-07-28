@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 import PostCard from '../components/PostCard';
 import EditPostModal from '../components/EditPostModal';
 
@@ -66,10 +66,17 @@ const MyPosts = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Row gutter={[16, 16]}>
+    <div style={{ padding: '20px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Row gutter={[16, 16]} style={{ width: '100%' }}>
         {posts.map((post) => (
-          <Col key={post.id} span={6}>
+          <Col
+            key={post.id}
+            xs={24}
+            sm={12}
+            md={8}
+            lg={6}
+            xl={4}
+          >
             <PostCard post={post} onClick={handleCardClick} fetchWithAuth={fetchWithAuth} onDelete={handleDelete}/>
           </Col>
         ))}

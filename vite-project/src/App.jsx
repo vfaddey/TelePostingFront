@@ -26,19 +26,19 @@ function App() {
           <img src={logo} alt="Logo" style={{ maxWidth: '100%', maxHeight: '64px' }} />
         </div>
         <Menu theme="dark" mode="inline">
-          <Menu.Item key="1" icon={<EditFilled />}>
+          <Menu.Item key="1" icon={<EditFilled style={{color: '#eab000'}}/>}>
             <Link to="/create_post">Создание поста</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<RobotFilled />}>
+          <Menu.Item key="2" icon={<RobotFilled style={{color: '#eab000'}}/>}>
             <Link to="/bots">Мои боты</Link>
           </Menu.Item>
-          <Menu.Item key="3"  icon={<AppstoreFilled />}>
+          <Menu.Item key="3"  icon={<AppstoreFilled style={{color: '#eab000'}}/>}>
             <Link to="/channels">Мои Каналы</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<FileTextFilled />}>
+          <Menu.Item key="4" icon={<FileTextFilled style={{color: '#eab000'}}/>}>
             <Link to="/posts">Мои посты</Link>
           </Menu.Item>
-          <Menu.Item key="5" icon={<ProfileFilled/>}>
+          <Menu.Item key="5" icon={<ProfileFilled style={{color: '#eab000'}}/>}>
             <Link to="/profile">Профиль</Link>
           </Menu.Item>
         </Menu>

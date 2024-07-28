@@ -1,7 +1,7 @@
-// src/components/PostCard.js
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Popconfirm } from 'antd';
+import {Card, Button, Popconfirm, message} from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const { Meta } = Card;
 
@@ -16,7 +16,7 @@ const PostCard = ({ post, onClick, fetchWithAuth, onDelete }) => {
         const url = URL.createObjectURL(blob);
         return url;
       } catch (error) {
-        console.error(`Failed to fetch photo with id ${photoId}`, error);
+        message.error(`Не получилось получить фотографию с id:  ${photoId}`, error);
         return '';
       }
     };
@@ -31,6 +31,10 @@ const PostCard = ({ post, onClick, fetchWithAuth, onDelete }) => {
     fetchPhotos();
   }, [post.photo_ids, fetchWithAuth]);
 
+  const formatPublishTime = (publishTime) => {
+    return moment(publishTime).add(3, 'hours').format('YYYY-MM-DD HH:mm');
+  };
+
   return (
     <Card
       hoverable
@@ -38,14 +42,14 @@ const PostCard = ({ post, onClick, fetchWithAuth, onDelete }) => {
       cover={photoUrl && <img alt="post" src={photoUrl} />}
       actions={[
         <Popconfirm
-          title="Are you sure to delete this post?"
+          title="Вы уверены, что хотите удалить пост?"
           onConfirm={(e) => {
             e.stopPropagation();
             onDelete(post.id);
           }}
           onCancel={(e) => e.stopPropagation()}
-          okText="Yes"
-          cancelText="No"
+          okText="Да"
+          cancelText="Нет"
         >
           <Button
             danger
@@ -57,7 +61,16 @@ const PostCard = ({ post, onClick, fetchWithAuth, onDelete }) => {
       ]}
       onClick={() => onClick(post)}
     >
-      <Meta title={post.text} description={post.publish_time} />
+      <Meta
+        title={<span style={{ fontWeight: 'normal' }}>{post.text}</span>}
+        description={(
+          <>
+            <div>Дата публикации: {formatPublishTime(post.publish_time)}</div>
+            {post.delete_time && <div>Дата удаления: {moment(post.delete_time).format('YYYY-MM-DD HH:mm')}</div>}
+            <div>Каналы: {post.channels.join(', ')}</div>
+          </>
+        )}
+      />
     </Card>
   );
 };

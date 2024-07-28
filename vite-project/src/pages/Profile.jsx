@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Spin, notification, List, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import {CheckCircleTwoTone, UserOutlined} from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
 import ConfirmAccountModal from './ConfirmAccount';
 
@@ -69,9 +69,9 @@ const Profile = () => {
 
   return (
     <Card title="Профиль" style={{ width: '100%' }}>
-      <p><strong>Username:</strong> {userData.username}</p>
+      <p><strong>Имя пользователя:</strong> {userData.username}</p>
       <p><strong>Email:</strong> {userData.email}</p>
-      {userData.telegram_username && <p><strong>Telegram Username:</strong> {userData.telegram_username}</p>}
+      {userData.telegram_username && <p><CheckCircleTwoTone twoToneColor={"#21b600"}/> <strong>Telegram:</strong> @{userData.telegram_username}</p>}
       {!userData.verified && <ConfirmAccountModal />}
       {userData.channels && (
         <List
