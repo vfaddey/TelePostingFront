@@ -67,16 +67,13 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
     formData.append('publish_now', publishNow);
 
     if (!publishNow && values.publish_time) {
-      const publishTime = values.publish_time.add(3, 'hour');
-      formData.append('publish_time', publishTime.toISOString());
+      formData.append('publish_time', values.publish_time.toISOString());
     }
 
     if (values.delete_time) {
-      const deleteTime = values.delete_time.add(3, 'hour');
-      formData.append('delete_time', deleteTime.toISOString());
+      formData.append('delete_time', values.delete_time.toISOString());
     }
 
-    // Отправляем пустой массив вместо фотографий
     formData.append('photos', JSON.stringify([]));
 
     if (selectedChannels.length > 0) {
@@ -92,14 +89,13 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
         method: 'PUT',
         body: formData,
       });
-
+      const result = await response.json();
       if (response.ok) {
-        const result = await response.json();
         message.success('Пост обновлен успешно');
         onSave(result);
         onClose();
       } else {
-        message.error('Ошибка при обновлении поста');
+        message.error(result.detail);
         console.error('Error:', response.statusText);
       }
     } catch (error) {
