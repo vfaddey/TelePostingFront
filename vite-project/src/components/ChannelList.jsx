@@ -39,7 +39,7 @@ const ChannelList = ({fetchWithAuth}) => {
           message: 'Успех',
           description: 'Канал успешно удален',
         });
-        setBots((prevChannles) => prevBots.filter((channel) => channel.username !== username));
+        setChannels((prevChannles) => prevChannles.filter((channel) => channel.username !== username));
       } else {
         const result = await response.json();
         message.error(result.detail || 'Не удалось удалить канал');
