@@ -13,7 +13,7 @@ const ConfirmAccountModal = () => {
     options.headers['Authorization'] = `Bearer ${accessToken}`;
     let response = await fetch(url, options);
     if (response.status === 401) {
-      const refreshResponse = await fetch('http://localhost:8000/auth/refresh', {
+      const refreshResponse = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const ConfirmAccountModal = () => {
 
   const showModal = async () => {
     try {
-      const response = await fetchWithAuth('http://localhost:8000/auth/confirm', {method: 'GET'});
+      const response = await fetchWithAuth('/api/auth/confirm', {method: 'GET'});
       if (!response.ok) {
         throw new Error(await response.text());
       }
@@ -56,7 +56,7 @@ const ConfirmAccountModal = () => {
 
   const checkUserStatus = async () => {
     try {
-      const response = await fetchWithAuth('http://localhost:8000/auth/users/me');
+      const response = await fetchWithAuth('/api/auth/users/me');
       if (!response.ok) {
         throw new Error(await response.text());
       }

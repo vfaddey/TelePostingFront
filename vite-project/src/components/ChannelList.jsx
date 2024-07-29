@@ -12,7 +12,7 @@ const ChannelList = ({fetchWithAuth}) => {
   useEffect(() => {
     const fetchChannels = async () => {
       try {
-        const response = await fetchWithAuth('http://localhost:8000/channels', {method: 'GET'});
+        const response = await fetchWithAuth('/api/channels', {method: 'GET'});
         const data = await response.json();
         setChannels(data);
         setLoading(false);
@@ -30,7 +30,7 @@ const ChannelList = ({fetchWithAuth}) => {
 
   const handleDelete = async (username) => {
     try {
-      const response = await fetchWithAuth(`http://localhost:8000/channels/${username}`, {
+      const response = await fetchWithAuth(`/api/channels/${username}`, {
         method: 'DELETE',
       });
 

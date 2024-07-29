@@ -16,7 +16,7 @@ const Profile = () => {
     options.headers['Authorization'] = `Bearer ${accessToken}`;
     let response = await fetch(url, options);
     if (response.status === 401) {
-      const refreshResponse = await fetch('http://localhost:8000/auth/refresh', {
+      const refreshResponse = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetchWithAuth('http://localhost:8000/auth/users/me');
+        const response = await fetchWithAuth('/api/auth/users/me');
         console.log(response)
         if (!response.ok) {
           throw new Error(await response.text());

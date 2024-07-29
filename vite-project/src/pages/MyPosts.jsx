@@ -56,7 +56,7 @@ const MyPosts = () => {
 
   const handleDelete = async (postId) => {
     try {
-      await fetchWithAuth(`http://localhost:8000/create_post/${postId}`, { method: 'DELETE' });
+      await fetchWithAuth(`/api/create_post/${postId}`, { method: 'DELETE' });
       setPosts(posts.filter(post => post.id !== postId));
       message.success('Post deleted successfully');
     } catch (error) {

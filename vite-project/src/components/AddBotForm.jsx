@@ -16,7 +16,7 @@ const AddBotForm = ({ fetchWithAuth }) => {
             chosen: values.chosen || false
         };
         try {
-            const response = await fetchWithAuth('http://127.0.0.1:8000/bots/add', {
+            const response = await fetchWithAuth('/api/bots/add', {
                 method: 'POST',
                 headers: {
                       'Content-Type': 'application/json'

@@ -25,7 +25,7 @@ const UploadXLSXForm = ({fetchWithAuth}) =>  {
           for (const pair of formData.entries()) {
               console.log(pair[0] + ': ' + pair[1]);
           }
-          const response = await fetchWithAuth('http://127.0.0.1:8000/create_post/uploadfile', {
+          const response = await fetchWithAuth('/api/create_post/uploadfile', {
               method: 'POST',
               body: formData,
           });

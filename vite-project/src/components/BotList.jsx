@@ -11,7 +11,7 @@ const BotList = ({fetchWithAuth}) => {
   useEffect(() => {
     const fetchBots = async () => {
       try {
-        const response = await fetchWithAuth('http://localhost:8000/bots', {method: 'GET'});
+        const response = await fetchWithAuth('/api/bots', {method: 'GET'});
         const data = await response.json();
         setBots(data);
         setLoading(false);
@@ -29,7 +29,7 @@ const BotList = ({fetchWithAuth}) => {
 
   const handleSetActive = async (apiToken) => {
     try {
-      const response = await fetchWithAuth('http://localhost:8000/bots', {
+      const response = await fetchWithAuth('/api/bots', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const BotList = ({fetchWithAuth}) => {
 
   const handleDelete = async (apiToken) => {
     try {
-      const response = await fetchWithAuth(`http://localhost:8000/bots/${apiToken}`, {
+      const response = await fetchWithAuth(`/api/bots/${apiToken}`, {
         method: 'DELETE',
       });
 

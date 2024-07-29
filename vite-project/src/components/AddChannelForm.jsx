@@ -15,7 +15,7 @@ const AddChannelForm = ({ fetchWithAuth }) => {
             username: '@' + values.username
         };
         try {
-            const response = await fetchWithAuth('http://127.0.0.1:8000/channels', {
+            const response = await fetchWithAuth('/api/channels', {
                 method: 'POST',
                 headers: {
                       'Content-Type': 'application/json'

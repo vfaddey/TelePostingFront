@@ -11,7 +11,7 @@ const PostCard = ({ post, onClick, fetchWithAuth, onDelete }) => {
   useEffect(() => {
     const fetchPhoto = async (photoId) => {
       try {
-        const response = await fetchWithAuth(`http://localhost:8000/create_post/photo/${photoId}`, { method: 'GET' });
+        const response = await fetchWithAuth(`/api/create_post/photo/${photoId}`, { method: 'GET' });
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         return url;

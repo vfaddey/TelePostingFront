@@ -12,7 +12,7 @@ const MyChannels = () => {
     options.headers['Authorization'] = `Bearer ${accessToken}`;
     let response = await fetch(url, options);
     if (response.status === 401) {
-      const refreshResponse = await fetch('http://localhost:8000/auth/refresh', {
+      const refreshResponse = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

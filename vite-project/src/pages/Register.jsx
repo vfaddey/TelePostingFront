@@ -12,7 +12,7 @@ const Register = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/auth/sign_up', {
+      const response = await fetch('/api/auth/sign_up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
