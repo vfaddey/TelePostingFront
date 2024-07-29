@@ -60,8 +60,8 @@ const MyPosts = () => {
       setPosts(posts.filter(post => post.id !== postId));
       message.success('Post deleted successfully');
     } catch (error) {
-      console.error('Failed to delete post', error);
-      message.error('Failed to delete post');
+      console.error('Не удалось удалить пост', error);
+      message.error('Не удалось удалить пост');
     }
   };
 

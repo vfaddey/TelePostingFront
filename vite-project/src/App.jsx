@@ -89,7 +89,7 @@ function App() {
             </Routes>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>LeetPost ©2024 by Fadde</Footer>
+        <Footer style={{ textAlign: 'center' }}>LeetPost ©2024 by Faddey</Footer>
       </Layout>
     </Layout>
   );

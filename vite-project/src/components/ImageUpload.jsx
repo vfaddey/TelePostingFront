@@ -27,6 +27,7 @@ class ImageUpload extends React.Component {
     return (
       <div className="clearfix">
         <Upload
+          maxCount={10}
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}

@@ -31,7 +31,7 @@ const CreatePost = () => {
   return (
       <>
         <div>
-           <h2>Create Post</h2>
+           <h2>Создание поста</h2>
             <CreateTelegramPostForm fetchWithAuth={fetchWithAuth}/>
             <Divider/>
             <UploadXLSXForm fetchWithAuth={fetchWithAuth}/>

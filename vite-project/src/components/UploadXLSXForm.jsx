@@ -54,7 +54,7 @@ const UploadXLSXForm = ({fetchWithAuth}) =>  {
                 </FormItem>
 
                 <FormItem wrapperCol={{ span: 12, offset: 6 }}>
-                  <Button type="primary" htmlType="submit">Submit</Button>
+                  <Button type="primary" htmlType="submit">Загрузить</Button>
                 </FormItem>
             </Form>
 

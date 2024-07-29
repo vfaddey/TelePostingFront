@@ -12,14 +12,14 @@ const LoginForm = ({ onFinish, buttonText }) => {
     >
       <Form.Item
         name="email"
-        rules={[{ required: true, message: 'Please input your Email!' }]}
+        rules={[{ required: true, message: 'Введите Ваш email' }]}
       >
         <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
       </Form.Item>
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        rules={[{ required: true, message: 'Введите пароль!' }]}
       >
         <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Пароль" />
       </Form.Item>
