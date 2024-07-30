@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Row, Col, message } from 'antd';
+import { Row, Col } from 'antd';
 import PostCard from '../components/PostCard';
 import EditPostModal from '../components/EditPostModal';
 
@@ -15,7 +15,7 @@ const MyPosts = () => {
     options.headers['Authorization'] = `Bearer ${accessToken}`;
     let response = await fetch(url, options);
     if (response.status === 401) {
-      const refreshResponse = await fetch('http://localhost:8000/auth/refresh', {
+      const refreshResponse = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const MyPosts = () => {
   };
 
   const fetchPosts = async () => {
-    const response = await fetchWithAuth('http://localhost:8000/create_post', {method: 'GET'});
+    const response = await fetchWithAuth('/api/create_post/', {method: 'GET'});
     const data = await response.json();
     setPosts(data);
   };
@@ -58,25 +58,18 @@ const MyPosts = () => {
     try {
       await fetchWithAuth(`/api/create_post/${postId}`, { method: 'DELETE' });
       setPosts(posts.filter(post => post.id !== postId));
-      message.success('Post deleted successfully');
+      message.success('Пост удален');
     } catch (error) {
-      console.error('Не удалось удалить пост', error);
-      message.error('Не удалось удалить пост');
+      console.error('Не получилось удалить пост', error);
+      message.error('Не получилось удалить пост');
     }
   };
 
   return (
-    <div style={{ padding: '20px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <Row gutter={[16, 16]} style={{ width: '100%' }}>
+    <div style={{ padding: '20px' }}>
+      <Row gutter={[16, 16]}>
         {posts.map((post) => (
-          <Col
-            key={post.id}
-            xs={24}
-            sm={12}
-            md={8}
-            lg={6}
-            xl={4}
-          >
+          <Col key={post.id} span={6}>
             <PostCard post={post} onClick={handleCardClick} fetchWithAuth={fetchWithAuth} onDelete={handleDelete}/>
           </Col>
         ))}

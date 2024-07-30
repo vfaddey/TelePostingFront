@@ -12,7 +12,7 @@ const ChannelList = ({fetchWithAuth}) => {
   useEffect(() => {
     const fetchChannels = async () => {
       try {
-        const response = await fetchWithAuth('/api/channels', {method: 'GET'});
+        const response = await fetchWithAuth('/api/channels/', {method: 'GET'});
         const data = await response.json();
         setChannels(data);
         setLoading(false);

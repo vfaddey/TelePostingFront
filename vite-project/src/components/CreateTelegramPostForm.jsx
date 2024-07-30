@@ -1,6 +1,6 @@
 import {
     Form, Radio,
-    Button, Input, Flex, DatePicker, message, Switch, Spin, Checkbox, ConfigProvider
+    Button, Input, Flex, DatePicker, message, Switch, Spin, Checkbox
 } from 'antd';
 import 'react-quill/dist/quill.snow.css';
 import React from 'react';
@@ -24,7 +24,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
     React.useEffect(() => {
       const fetchChannels = async () => {
           try {
-              const response = await fetchWithAuth('http://127.0.0.1:8000/channels', {method: 'GET'});
+              const response = await fetchWithAuth('api/channels/', {method: 'GET'});
               if (response.ok) {
                   const data = await response.json();
                   setChannels(data);
@@ -87,7 +87,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
 
       setLoading(true);
       try {
-          const response = await fetchWithAuth('/api/create_post/', {
+          const response = await fetchWithAuth('api/create_post/', {
               method: 'POST',
               body: formData,
           });
@@ -123,8 +123,8 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
   };
 
   const formItemLayout = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 16 }
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 }
   };
 
     return (
@@ -147,7 +147,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                 
 
                 <FormItem label="Дата удаления" {...formItemLayout} name="delete_time">
-                  <DatePicker showTime format="YYYY-MM-DD HH:mm"/>
+                  <DatePicker showTime />
                 </FormItem>
 
                 <FormItem label="Опубликовать сразу" {...formItemLayout}>
@@ -160,12 +160,12 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
 
                 {!publishNow && (
                   <FormItem label="Дата публикации" {...formItemLayout} name="publish_time">
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm"/>
+                    <DatePicker showTime />
                   </FormItem>
                 )}
 
                 <FormItem wrapperCol={{ span: 12, offset: 6 }}>
-                    <Button type="primary" htmlType="submit">{publishNow ? 'Опубликовать' : 'Запланировать'}</Button>
+                  <Button type="primary" htmlType="submit">Submit</Button>
                 </FormItem>
             </Form>
         </Spin>

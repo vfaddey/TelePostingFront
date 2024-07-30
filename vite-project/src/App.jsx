@@ -10,7 +10,7 @@ import MyBots from "./pages/MyBots.jsx";
 import MyChannels from "./pages/MyChannels.jsx"
 import MyPosts from "./pages/MyPosts";
 import Profile from "./pages/Profile"; 
-import { EditOutlined, ProfileOutlined, RobotOutlined, FileTextOutlined, AppstoreOutlined, EditFilled, RobotFilled, AppstoreFilled, FileTextFilled, ProfileFilled } from '@ant-design/icons';
+import { EditFilled, RobotFilled, AppstoreFilled, FileTextFilled, ProfileFilled } from '@ant-design/icons';
 import logo from './images/logo.png'
 
 const { Header, Content, Footer, Sider } = Layout;

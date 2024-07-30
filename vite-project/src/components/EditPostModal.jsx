@@ -15,7 +15,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
   useEffect(() => {
     const fetchChannels = async () => {
       try {
-        const response = await fetchWithAuth('/api/channels', { method: 'GET' });
+        const response = await fetchWithAuth('/api/channels/', { method: 'GET' });
         if (response.ok) {
           const data = await response.json();
           setChannels(data);
@@ -85,7 +85,7 @@ const EditPostModal = ({ visible, onClose, post, onSave, fetchWithAuth }) => {
 
     setLoading(true);
     try {
-      const response = await fetchWithAuth(`/api/create_post`, {
+      const response = await fetchWithAuth(`/api/create_post/`, {
         method: 'PUT',
         body: formData,
       });
