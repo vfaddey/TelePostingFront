@@ -3,8 +3,10 @@ import LoginForm from "../components/LoginForm.jsx";
 import {useAuth} from "../context/AuthContext.jsx";
 import {message, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
+import useTitle from '../hooks/useTitle.js';
 
 const Login = () => {
+  useTitle('Вход');
   const { updateTokens } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

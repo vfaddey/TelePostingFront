@@ -3,8 +3,10 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {message, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
 import RegisterForm from "../components/RegisterForm.jsx";
+import useTitle from '../hooks/useTitle.js';
 
 const Register = () => {
+  useTitle('Регистрация');
   const { updateTokens } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

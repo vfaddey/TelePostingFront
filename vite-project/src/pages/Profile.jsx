@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, Spin, notification, List, Avatar } from 'antd';
 import {CheckCircleTwoTone, UserOutlined} from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
-import ConfirmAccountModal from './ConfirmAccount';
+import ConfirmAccountModal from '../components/ConfirmAccount';
+import useTitle from '../hooks/useTitle';
 
 const Profile = () => {
+  useTitle('Профиль');
   const { accessToken, refreshToken, updateTokens } = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);

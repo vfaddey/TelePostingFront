@@ -3,8 +3,10 @@ import { useAuth } from '../context/AuthContext';
 import { Row, Col } from 'antd';
 import PostCard from '../components/PostCard';
 import EditPostModal from '../components/EditPostModal';
+import useTitle from '../hooks/useTitle';
 
 const MyPosts = () => {
+  useTitle('Посты');
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);

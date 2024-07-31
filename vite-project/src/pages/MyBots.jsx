@@ -3,8 +3,10 @@ import { useAuth } from '../context/AuthContext';
 import AddBotForm from "../components/AddBotForm.jsx";
 import BotList from "../components/BotList.jsx";
 import {Divider} from "antd";
+import useTitle from '../hooks/useTitle';
 
 const MyBots = () => {
+  useTitle('Мои боты');
   const { accessToken, refreshToken, updateTokens } = useAuth();
 
   const fetchWithAuth = async (url, options = {}) => {

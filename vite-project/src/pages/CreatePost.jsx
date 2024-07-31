@@ -3,9 +3,11 @@ import CreateTelegramPostForm from "../components/CreateTelegramPostForm.jsx";
 import {Divider} from "antd";
 import UploadXLSXForm from "../components/UploadXLSXForm.jsx";
 import { useAuth } from '../context/AuthContext';
-import ConfirmAccount from './ConfirmAccount.jsx';
+import ConfirmAccount from '../components/ConfirmAccount.jsx';
+import useTitle from '../hooks/useTitle.js';
 
 const CreatePost = () => {
+  useTitle('Создание поста');
   const { accessToken, refreshToken, updateTokens } = useAuth();
 
   const fetchWithAuth = async (url, options = {}) => {

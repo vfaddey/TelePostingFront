@@ -3,8 +3,10 @@ import { useAuth } from '../context/AuthContext';
 import {Divider} from "antd";
 import ChannelList from '../components/ChannelList';
 import AddChannelForm from '../components/AddChannelForm';
+import useTitle from '../hooks/useTitle';
 
 const MyChannels = () => {
+  useTitle('Мои каналы');
   const { accessToken, refreshToken, updateTokens } = useAuth();
 
   const fetchWithAuth = async (url, options = {}) => {

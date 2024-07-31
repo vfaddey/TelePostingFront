@@ -12,6 +12,7 @@ import MyPosts from "./pages/MyPosts";
 import Profile from "./pages/Profile"; 
 import { EditFilled, RobotFilled, AppstoreFilled, FileTextFilled, ProfileFilled } from '@ant-design/icons';
 import logo from './images/logo.png'
+import NotFound from './pages/NotFound';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -62,9 +63,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/create_post" element={
-                <PrivateRoute>
+                // <PrivateRoute>
                   <CreatePost />
-                </PrivateRoute>
+                // {/* </PrivateRoute> */}
               }/>
               <Route path="/bots" element={
                 <PrivateRoute>
@@ -86,6 +87,7 @@ function App() {
                   <Profile />
                 </PrivateRoute>
               } />
+              <Route path="*" element={<NotFound />}/>
             </Routes>
           </div>
         </Content>

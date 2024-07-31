@@ -27,14 +27,15 @@ const CreateButtons = () => {
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Row key={key} gutter={[16, 16]}>
+              <Row key={key} gutter={[8, 8]} style={{ marginBottom: 8 }}>
                 <Col span={24}>
-                  <Card title={`Кнопка ${name + 1}`} style={{ marginBottom: 16 }}>
-                    <Space direction="vertical" style={{ display: 'flex' }}>
+                  <Card title={`Кнопка ${name + 1}`} bodyStyle={{ padding: 12 }} style={{ marginBottom: 8 }}>
+                    <Space direction="vertical" size="small" style={{ display: 'flex' }}>
                       <FormItem
                         {...restField}
                         name={[name, 'type']}
                         rules={[{ required: true, message: 'Выберите тип кнопки' }]}
+                        style={{ marginBottom: 8 }}
                       >
                         <Select placeholder="Выберите тип кнопки">
                           <Option value="url">URL</Option>
@@ -45,6 +46,7 @@ const CreateButtons = () => {
                         {...restField}
                         name={[name, 'text']}
                         rules={[{ required: true, message: 'Введите текст кнопки' }]}
+                        style={{ marginBottom: 8 }}
                       >
                         <Input placeholder="Текст кнопки" />
                       </FormItem>
@@ -61,6 +63,7 @@ const CreateButtons = () => {
                                 {...restField}
                                 name={[name, 'url']}
                                 rules={[{ required: true, message: 'Введите URL' }]}
+                                style={{ marginBottom: 8 }}
                               >
                                 <Input placeholder="URL" />
                               </FormItem>
@@ -72,6 +75,7 @@ const CreateButtons = () => {
                                   {...restField}
                                   name={[name, 'subscriberText']}
                                   rules={[{ required: true, message: 'Введите текст для подписчиков' }]}
+                                  style={{ marginBottom: 8 }}
                                 >
                                   <Input placeholder="Текст для подписчиков" />
                                 </FormItem>
@@ -79,6 +83,7 @@ const CreateButtons = () => {
                                   {...restField}
                                   name={[name, 'guestText']}
                                   rules={[{ required: true, message: 'Введите текст для гостей' }]}
+                                  style={{ marginBottom: 8 }}
                                 >
                                   <Input placeholder="Текст для гостей" />
                                 </FormItem>

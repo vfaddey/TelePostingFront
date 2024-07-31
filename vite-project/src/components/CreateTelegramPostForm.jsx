@@ -1,5 +1,5 @@
 import {
-    Form, Radio,
+    Form, Radio, Alert, Space,
     Button, Input, Flex, DatePicker, message, Switch, Spin, Checkbox
 } from 'antd';
 import 'react-quill/dist/quill.snow.css';
@@ -10,7 +10,6 @@ import CreateButtons from "./CreateButtons.jsx";
 
 const { Item: FormItem } = Form;
 const { TextArea } = Input;
-
 
 
 const CreateTelegramPostForm = ({ fetchWithAuth }) => {
@@ -123,8 +122,8 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
   };
 
   const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 8 }
+    labelCol: { span: 5 },
+    wrapperCol: { span: 16 }
   };
 
     return (
@@ -136,7 +135,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                 </FormItem>
 
                 <FormItem label="Текст" {...formItemLayout} name="text">
-                  <TextArea showCount maxLength={10000} placeholder="Текст поста" />
+                  <TextArea rows={5} showCount maxLength={10000} placeholder="Текст поста" />
                 </FormItem>
 
                 {fileList.length <= 1 && (
@@ -147,25 +146,42 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                 
 
                 <FormItem label="Дата удаления" {...formItemLayout} name="delete_time">
-                  <DatePicker showTime />
+                  <DatePicker showTime format="YYYY-MM-DD HH:mm"/>
                 </FormItem>
 
                 <FormItem label="Опубликовать сразу" {...formItemLayout}>
                   <Switch defaultChecked={publishNow} onChange={handlePublishNowChange} />
                 </FormItem>
 
-                <Form.Item label="Каналы для публикации" {...formItemLayout}>
-                    <Checkbox.Group options={channels.map(channel => ({ label: channel.title, value: channel.username }))} onChange={handleChannelChange} />
-                </Form.Item>
-
                 {!publishNow && (
                   <FormItem label="Дата публикации" {...formItemLayout} name="publish_time">
-                    <DatePicker showTime />
+                    <DatePicker showTime format="YYYY-MM-DD HH:mm"/>
                   </FormItem>
                 )}
 
+                <Form.Item label="Каналы для публикации" {...formItemLayout}>
+                  {channels.length > 0 ? (
+                    <Checkbox.Group 
+                      options={channels.map(channel => ({ label: channel.title, value: channel.username }))} 
+                      onChange={handleChannelChange} 
+                    />
+                  ) : (
+                    <Alert
+                      message="У Вас пока нет каналов"
+                      type="info"
+                      action={
+                        <Space direction="vertical">
+                          <Button size="small" type="primary" href='/channels'>
+                            Добавить
+                          </Button>
+                        </Space>
+                      }
+                    />
+                  )}
+                </Form.Item>
+
                 <FormItem wrapperCol={{ span: 12, offset: 6 }}>
-                  <Button type="primary" htmlType="submit">Submit</Button>
+                  <Button size='large' type="primary" htmlType="submit">{publishNow ? "Опубликовать" : "Запланировать"}</Button>
                 </FormItem>
             </Form>
         </Spin>
