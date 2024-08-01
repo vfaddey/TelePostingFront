@@ -17,8 +17,8 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY path/to/your/certificates/fullchain.pem /etc/nginx/ssl/leetpost.ru/fullchain.pem
-COPY path/to/your/certificates/privkey.pem /etc/nginx/ssl/leetpost.ru/privkey.pem
+COPY /etc/letsencrypt/live/leetpost.ru/fullchain.pem /etc/nginx/ssl/fullchain.pem
+COPY /etc/letsencrypt/live/leetpost.ru/privkey.pem /etc/nginx/ssl/privkey.pem
 
 EXPOSE 80
 EXPOSE 443
