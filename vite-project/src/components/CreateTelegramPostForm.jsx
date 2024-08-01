@@ -134,7 +134,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                   <ImageUpload fileList={fileList} onChange={handleFileChange}/>
                 </FormItem>
 
-                <FormItem label="Текст" {...formItemLayout} name="text">
+                <FormItem style={{marginBottom: 20 }} label="Текст" {...formItemLayout} name="text">
                   <TextArea rows={5} showCount maxLength={10000} placeholder="Текст поста" />
                 </FormItem>
 
@@ -144,7 +144,6 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                   </FormItem>
                 )}
                 
-
                 <FormItem label="Дата удаления" {...formItemLayout} name="delete_time">
                   <DatePicker showTime format="YYYY-MM-DD HH:mm"/>
                 </FormItem>
