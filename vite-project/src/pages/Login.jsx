@@ -31,7 +31,7 @@ const Login = () => {
       if (response.ok) {
         updateTokens(result.access_token, result.refresh_token);
         message.success('Вход выполнен успешно');
-        navigate('/create_post');
+        navigate('/dashboard/create_post');
       } else {
         message.error(result.detail || 'Ошибка входа');
       }
