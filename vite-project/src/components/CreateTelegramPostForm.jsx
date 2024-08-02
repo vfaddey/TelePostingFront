@@ -23,7 +23,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
     React.useEffect(() => {
       const fetchChannels = async () => {
           try {
-              const response = await fetchWithAuth('api/channels/', {method: 'GET'});
+              const response = await fetchWithAuth('/api/channels/', {method: 'GET'});
               if (response.ok) {
                   const data = await response.json();
                   setChannels(data);
@@ -170,7 +170,7 @@ const CreateTelegramPostForm = ({ fetchWithAuth }) => {
                       type="info"
                       action={
                         <Space direction="vertical">
-                          <Button size="small" type="primary" href='/channels'>
+                          <Button size="small" type="primary" href='/dashboard/channels'>
                             Добавить
                           </Button>
                         </Space>
