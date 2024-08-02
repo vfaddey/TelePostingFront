@@ -10,7 +10,7 @@ const NotFound = () => {
       status="404"
       title="404"
       subTitle="Извините, такой страницы не существует."
-      extra={<Button type="primary" href='/create_post'>Назад</Button>}
+      extra={<Button type="primary" href='/dashboard/create_post'>Назад</Button>}
     />
   );
 };

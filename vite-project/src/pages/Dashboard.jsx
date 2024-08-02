@@ -13,7 +13,6 @@ import Profile from "./Profile";
 import { EditFilled, RobotFilled, AppstoreFilled, FileTextFilled, ProfileFilled, MenuOutlined } from '@ant-design/icons';
 import logo from '../images/logo_2.png';
 import small_logo from '../images/logo_small_2.png'
-import NotFound from './NotFound';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -105,34 +104,33 @@ const Dashboard = () => {
         <Content style={{ margin: '16px' }}>
           <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
             <Routes>
-              <Route path="register" element={<Register />} />
-              <Route path="login" element={<Login />} />
-              <Route path="create_post" element={
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/create_post" element={
                 <PrivateRoute>
                   <CreatePost />
                 </PrivateRoute>
               }/>
-              <Route path="bots" element={
+              <Route path="/bots" element={
                 <PrivateRoute>
                   <MyBots/>
                 </PrivateRoute>
               } />
-              <Route path="channels" element={
+              <Route path="/channels" element={
                 <PrivateRoute>
                   <MyChannels/>
                 </PrivateRoute>
               } />
-              <Route path="posts" element={
+              <Route path="/posts" element={
                 <PrivateRoute>
                   <MyPosts/>
                 </PrivateRoute>
               } />
-              <Route path="profile" element={
+              <Route path="/profile" element={
                 <PrivateRoute>
                   <Profile />
                 </PrivateRoute>
               } />
-              <Route path="*" element={<NotFound />}/>
             </Routes>
           </div>
         </Content>
