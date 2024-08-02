@@ -25,7 +25,7 @@ const Register = () => {
       if (response.ok) {
         updateTokens(result.access_token, result.refresh_token);
         message.success('Регистрация успешна');
-        navigate('/create_post');
+        navigate('/dashboard/create_post');
       } else {
         message.error(result.detail || 'Ошибка регистрации');
       }

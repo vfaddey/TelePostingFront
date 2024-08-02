@@ -28,7 +28,7 @@ const LoginForm = ({ onFinish, buttonText }) => {
         <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
           {buttonText}
         </Button>
-        Или <a href="/register">Зарегистрироваться</a>
+        Или <a href="/dashboard/register">Зарегистрироваться</a>
       </Form.Item>
     </Form>
   );
