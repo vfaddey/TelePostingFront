@@ -7,11 +7,14 @@ import postImage from '../images/post_example.png';
 import backgroundImage from '../images/background.jpg';
 import logoImage from '../images/logo_2.png'; 
 import { RightCircleFilled, RobotFilled, EditFilled, AppstoreFilled } from '@ant-design/icons';
+import useTitle from '../hooks/useTitle';
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
+  useTitle('LeetPost — сервис публикации постов в телеграме ⏱️');
+
   return (
     <Layout>
       <Content style={{ padding: '0' }}>
